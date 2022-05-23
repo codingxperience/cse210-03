@@ -26,5 +26,5 @@ root                    (project root folder)
 
 ## Authors
 * Fred Okorio (mailto:oko22002@byui.edu)
-* Mmusi Hubona ()
+* Mmusi Hubona (mailto:hub22001@byui.edu)
 * Vaughn Pinnock (mailto:vpinnock@byui.edu)
