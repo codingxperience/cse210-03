@@ -1,14 +1,11 @@
 """
 Author: Vaughn Al-Duane Pinnock
-
 Task: class Director
 """
-
 
 from game.terminal_service import TerminalService
 from game.word import Word
 from game.parachutist import Parachutist
-
 
 class Director:
     """A person who directs the game. 
@@ -31,6 +28,7 @@ class Director:
         self._is_playing = True
         self._parachutist = Parachutist()
         self._word = Word()
+        self._terminal_service = TerminalService()
         
     def start_game(self):
         """Starts the game by running the main game loop.
@@ -38,11 +36,16 @@ class Director:
         Args:
             self (Director): an instance of Director.
         """
+        self.lives = 5
+        self._is_playing = True
         while self._is_playing:
-            self._get_inputs()
             self._do_updates()
             self._do_outputs()
-            self._is_playing = False
+            self._get_inputs()
+            self.lives -= 1
+            if self.lives == 0:
+                self._is_playing = False
+            self._is_playing = True
 
     def _get_inputs(self):
         """Moves the seeker to a new location.
@@ -50,7 +53,8 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
-        pass
+        guess = self._terminal_service.read_text("\nEnter your guess[a - z]: ")
+        self._word.check_guess(guess)
         
     def _do_updates(self):
         """Keeps watch on where the seeker is moving.
@@ -58,8 +62,9 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
-        pass
-        
+        self._word.check_for_win()
+        self._parachutist.parachute_gone()
+
     def _do_outputs(self):
         """Provides a hint for the seeker to use.
 
@@ -67,4 +72,4 @@ class Director:
             self (Director): An instance of Director.
         """
         self._parachutist.draw_parachutist()
-        self._word.draw_word_guess()
+        self._word.show()
