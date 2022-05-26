@@ -1,3 +1,9 @@
+"""
+Author: Vaughn Al-Duane Pinnock
+
+Task: Readme file
+"""
+
 # Jumper
 Are you brave enough to jump? The come play jumper. The rules are simple The rules are simple. Guess the letters that make up the secret word.
 If your guess is correct then the letter is revealed. If it is not correct. a line is cut from your parachute. Will you be the jumber that makes it to the ground?
