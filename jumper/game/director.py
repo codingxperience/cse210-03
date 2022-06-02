@@ -6,6 +6,7 @@ Task: class Director
 from game.terminal_service import TerminalService
 from game.word import Word
 from game.parachutist import Parachutist
+from game.draw import Draw
 
 class Director:
     """A person who directs the game. 
@@ -25,6 +26,7 @@ class Director:
         Args:
             self (Director): an instance of Director.
         """
+        self._draw = Draw()
         self._is_playing = True
         self._parachutist = Parachutist()
         self._word = Word()
@@ -36,16 +38,12 @@ class Director:
         Args:
             self (Director): an instance of Director.
         """
-        self.lives = 5
-        self._is_playing = True
+        self.wrong = 0
         while self._is_playing:
+            self._get_inputs()
             self._do_updates()
             self._do_outputs()
-            self._get_inputs()
-            self.lives -= 1
-            if self.lives == 0:
-                self._is_playing = False
-            self._is_playing = True
+            self.wrong += 1
 
     def _get_inputs(self):
         """Moves the seeker to a new location.
@@ -57,19 +55,28 @@ class Director:
         self._word.check_guess(guess)
         
     def _do_updates(self):
-        """Keeps watch on where the seeker is moving.
+        """Keeps track of game progress.
 
         Args:
             self (Director): An instance of Director.
         """
-        self._word.check_for_win()
-        self._parachutist.parachute_gone()
-
+        
     def _do_outputs(self):
         """Provides a hint for the seeker to use.
 
         Args:
             self (Director): An instance of Director.
         """
-        self._parachutist.draw_parachutist()
         self._word.show()
+        text = self._word.check_for_win()
+        self._terminal_service.write_text(text)
+        if self._word.win():
+            self._is_playing = False
+        elif self._word.loose():
+            self._is_playing = False
+        elif self._word.loose2():
+            self._is_playing = False
+        
+            # self._is_playing = False
+        # elif self._parachutist.loose():
+        #     self._is_playing = False

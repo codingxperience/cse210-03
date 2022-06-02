@@ -8,12 +8,16 @@ class Draw:
   The draw class piece handles the visuals of the game to indicate if the 
   player guessed the char letter correctly or wrongly  
   """
-  def draw__(self):
+  def __init__(self):
+    self.draw = 0
+
+  def draw(self, wrong):
     """
     This method has the if conditions for the correctly guessed word.
     if the player guesses wrong a line cut pattern is invoked 
     """
-    if self.wrong == 1:
+  
+    if self.wrong == 0:
       print()
       print(" ____ ")
       print("/____\ ")
@@ -24,7 +28,7 @@ class Draw:
       print("  / \ ")
       print("^^^^^^^")
       print()
-    elif self.wrong == 2:
+    elif self.wrong == 1:
       print()
       print(" ")
       print("/____\ ")
@@ -35,7 +39,7 @@ class Draw:
       print("  / \ ")
       print("^^^^^^^")
       print()
-    elif self.wrong == 3:
+    elif self.wrong == 2:
       print()
       print("\    / ")
       print(" \  / ")
@@ -44,7 +48,7 @@ class Draw:
       print("  / \ ")
       print("^^^^^^^")
       print()
-    elif self.wrong == 4:
+    elif self.wrong == 3:
       print()
       print(" \  / ")
       print("   o   ")
@@ -52,7 +56,7 @@ class Draw:
       print("  / \ ")
       print("^^^^^^^")
       print()
-    elif self.wrong == 5:
+    elif self.wrong == 4:
       print()
       print("   x   ")
       print("  /|\ ")

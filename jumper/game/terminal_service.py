@@ -1,9 +1,3 @@
-"""
-Author: Mmusi Hubona
-
-Task: class TerminalService
-"""
-
 class TerminalService:
     """A service that handles terminal operations.
     
@@ -43,13 +37,3 @@ class TerminalService:
             text (string): The text to display.
         """
         print(text)
-
-    def write_text_same_line(self, text):
-        """Displays text on the terminal, without skipping to new line
-        
-        Args: 
-            self (TerminalService): An instance of TerminalService.
-            text (string): The text to display.
-        """
-
-        print(text, end="")

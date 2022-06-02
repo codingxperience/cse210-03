@@ -4,7 +4,7 @@ Task: Class
 """
 
 from game.terminal_service import TerminalService
-# from game.parachutist import Parachutist
+from game.parachutist import Parachutist
 import random
 
 
@@ -12,11 +12,12 @@ class Word:
     """Generates guess word and keeps track of user guesses"""
     def __init__(self):
         self.terminalService = TerminalService()
-        # self._chute = Parachutist()
+        self._chute = Parachutist()
         words = ["moon","earth","abyss","bread","knife","butter","atom", "mass"]
         self._word = random.choice(words)
         self._display = ["_" for letter in self._word]
-        self.guesses = 5
+        self.wrong = 0
+        self.correct = 0
 
     def set_display(self, value):
         """Set display value"""
@@ -32,6 +33,8 @@ class Word:
 
     def show(self):
         """Display secret word in hidden format e.g _ _ _ """
+        self._chute.parachute_gone()
+        self._chute.draw_parachutist()
         display = " ".join(self.get_display())
         self.terminalService.write_text(display)
 
@@ -53,10 +56,28 @@ class Word:
         if guess in self.get_word():
             idx = self.get_word_index(guess)
             self.update(idx, guess)
+            self.correct += 1
+        else:
+            self._chute.remove_parachute_piece()
+            self.wrong += 1
 
     def check_for_win(self):
         """Checks if all the hidden letters have been matched"""
-        display = "".join(self._display)
-        word = self.get_word()
-        if display == word:
-            return True
+        text = ""
+        if self.correct == len(self.get_word()):
+            text = "**You have won**"
+
+        elif self.wrong == 4:
+            text = "You have lost, your parachute is gone!!"
+        
+        elif len(self._chute._parachutist) == 5:
+            text = "You have lost, your parachute is gone!!"
+        return text
+
+    def win(self):
+        return (self.correct == len(self.get_word()))
+    def loose(self):
+        return (self.wrong == 4)
+    def loose2(self):
+        return (len(self._chute._parachutist) == 5)
+

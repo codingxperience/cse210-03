@@ -4,14 +4,15 @@ Task: parachutist class
 """
 
 
+from re import X
 from game.terminal_service import TerminalService
-from game.word import Word
+# from game.word import Word
 
 class Parachutist:
 
   def __init__(self):
     self.terminalService = TerminalService()
-    self._word = Word()
+    # self._word = Word()
     self._parachutist = [
       " ____ ",
       "/____\ ",
@@ -36,9 +37,9 @@ class Parachutist:
     """This function cuts a line on the player's parachute 
        if thethe guess is wrong.
     """
-    guess = self._word.get_word()
-    if guess not in self._word.get_word():
-      self._parachutist.pop(0)
+    # guess = self._word.get_word()
+    # if guess not in self._word.get_word():
+    self._parachutist.pop(0)
 
   def has_parachute(self):
     """This method verifies if the player stills has the parachute"""
@@ -48,5 +49,6 @@ class Parachutist:
     """This method ends the game if the player
        no parachute frame to keep playing
      """
-    if len(self._parachutist) <= 5:
-      self._parachutist[0] = "x"
+    if len(self._parachutist) == 5:
+      self._parachutist[0] = "   x"
+  
